@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بطاقة سعر منتج</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <div class="controls no-print">
+        <h2>إعداد بطاقة المنتج</h2>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="productName">اسم المنتج</label>
+            <input
+              type="text"
+              id="productName"
+              value="روشين / شوكولاتة ميلكي"
+            />
+          </div>
+
+          <div class="field">
+            <label for="productWeight">الوزن / التفاصيل</label>
+            <input type="text" id="productWeight" value="Volume - 1 KG" />
+          </div>
+
+          <div class="field">
+            <label for="productPrice">السعر</label>
+            <input type="number" id="productPrice" value="26" />
+          </div>
+
+          <div class="field">
+            <label for="productOffer">العرض</label>
+            <input type="text" id="productOffer" value="1 حبة" />
+          </div>
+
+          <div class="field">
+            <label for="barcodeValue">رقم الباركود</label>
+            <input type="text" id="barcodeValue" value="4210177488818" />
+          </div>
+
+          <div class="field">
+            <label for="taxTextAr">النص العربي أسفل العرض</label>
+            <input type="text" id="taxTextAr" value="شامل الضريبة" />
+          </div>
+
+          <div class="field">
+            <label for="taxTextEn">النص الإنجليزي أسفل العرض</label>
+            <input type="text" id="taxTextEn" value="Tax Included" />
+          </div>
+
+          <div class="field">
+            <label for="productImageInput">صورة المنتج</label>
+            <input type="file" id="productImageInput" accept="image/*" />
+          </div>
+
+          <div class="field">
+            <label for="logoInput">شعار أسفل البطاقة (اختياري)</label>
+            <input type="file" id="logoInput" accept="image/*" />
+          </div>
+        </div>
+
+        <div class="btns">
+          <button id="updateBtn">تحديث البطاقة</button>
+          <button id="downloadBtn">تحميل كصورة</button>
+          <button id="printBtn">طباعة</button>
+        </div>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="tag-card" id="tagCard">
+          <div class="inner-frame">
+            <div class="header-box">
+              <div class="title-row" id="previewName">
+                روشين / شوكولاتة ميلكي
+              </div>
+
+              <div class="sub-row">
+                <div class="offer-top" id="previewTopOffer">قطعة - 1</div>
+                <svg id="barcode"></svg>
+              </div>
+
+              <div class="weight-row" id="previewWeight">Volume - 1 KG</div>
+            </div>
+
+            <div class="content-row">
+              <div class="image-side">
+                <img
+                  id="previewImage"
+                  src="https://via.placeholder.com/240x300?text=Product"
+                  alt="صورة المنتج"
+                />
+              </div>
+
+              <div class="price-side">
+                <div class="price-box">
+                  <div class="price-number" id="previewPrice">26</div>
+                  <img class="currency-mark-img" src="sar.png" alt="ريال" />
+                </div>
+
+                <div class="main-offer" id="previewOffer">1 حبة</div>
+
+                <div class="tax-ar" id="previewTaxAr">شامل الضريبة</div>
+                <div class="tax-en" id="previewTaxEn">Tax Included</div>
+              </div>
+            </div>
+
+            <div class="footer-row">
+              <div class="qr-box">
+                <img
+                  id="qrImage"
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=Product"
+                  alt="QR"
+                />
+              </div>
+
+              <div class="footer-logo-wrap">
+                <img
+                  id="footerLogo"
+                  src="https://via.placeholder.com/80x40?text=Logo"
+                  alt="Logo"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

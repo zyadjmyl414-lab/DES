@@ -1,0 +1,282 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: #ececec;
+  color: #111;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.controls {
+  max-width: 1100px;
+  margin: 0 auto 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.controls h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.field input {
+  height: 42px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.field input[type="file"] {
+  padding: 8px;
+  height: auto;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btns button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #0d6efd;
+  color: #fff;
+}
+
+.btns button:hover {
+  opacity: 0.92;
+}
+
+.preview-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* البطاقة */
+.tag-card {
+  width: 330px;
+  background: #b9e5ef;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.inner-frame {
+  background: #ffffff;
+  min-height: 520px;
+  padding: 8px;
+  border: 2px solid #d9d9d9;
+}
+
+.header-box {
+  background: #f1e71e;
+  border: 1px solid #7c7c7c;
+  padding: 8px 8px 6px;
+}
+
+.title-row {
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 800;
+  text-align: right;
+  min-height: 44px;
+}
+
+.sub-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.offer-top {
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+#barcode {
+  width: 125px;
+  height: 38px;
+  background: transparent;
+}
+
+.weight-row {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #444;
+  text-align: left;
+  direction: ltr;
+}
+
+.content-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 10px;
+  min-height: 330px;
+}
+
+.image-side {
+  width: 56%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.image-side img {
+  width: 100%;
+  max-height: 285px;
+  object-fit: contain;
+}
+
+.price-side {
+  width: 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 8px;
+}
+
+.price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.95;
+}
+
+.price-number {
+  font-size: 80px;
+  font-weight: 900;
+  color: #c95f2b;
+}
+
+.currency-mark-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  margin-top: -4px;
+}
+
+.main-offer {
+  margin-top: 68px;
+  color: #b04d24;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.tax-ar {
+  font-size: 18px;
+  font-weight: 800;
+  color: #666;
+  margin-top: 6px;
+  line-height: 1.1;
+}
+
+.tax-en {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.1;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 10px;
+}
+
+.qr-box img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border: 1px solid #bbb;
+}
+
+.footer-logo-wrap {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  min-width: 95px;
+  min-height: 45px;
+}
+
+.footer-logo-wrap img {
+  max-width: 90px;
+  max-height: 42px;
+  object-fit: contain;
+}
+
+/* للطباعة */
+@media print {
+  body {
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .page {
+    padding: 0;
+    margin: 0;
+  }
+
+  .preview-wrap {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag-card {
+    box-shadow: none;
+    margin: 0 auto;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
