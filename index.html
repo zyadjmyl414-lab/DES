@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
@@ -129,6 +129,163 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html> -->
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بطاقة سعر منتج</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar no-print">
+        <div class="topbar-inner">
+          <div>
+            <h1>بطاقة سعر المنتج</h1>
+            <p>تعديل سريع مع طباعة واضحة وبالألوان</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel no-print">
+          <h2>بيانات البطاقة</h2>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="productName">اسم المنتج</label>
+              <input
+                type="text"
+                id="productName"
+                value="روشين / شوكولاتة ميلكي"
+              />
+            </div>
+
+            <div class="field">
+              <label for="productWeight">الوصف الصغير</label>
+              <input type="text" id="productWeight" value="Volume - 1 KG" />
+            </div>
+
+            <div class="field">
+              <label for="topOffer">النص أعلى الباركود</label>
+              <input type="text" id="topOffer" value="قطعة - 1" />
+            </div>
+
+            <div class="field">
+              <label for="productPrice">السعر</label>
+              <input type="number" id="productPrice" value="26" />
+            </div>
+
+            <div class="field">
+              <label for="productOffer">العرض</label>
+              <input type="text" id="productOffer" value="1 حبة" />
+            </div>
+
+            <div class="field">
+              <label for="barcodeValue">رقم الباركود</label>
+              <input type="text" id="barcodeValue" value="4210177488818" />
+            </div>
+
+            <div class="field">
+              <label for="taxTextAr">النص العربي</label>
+              <input type="text" id="taxTextAr" value="شامل الضريبة" />
+            </div>
+
+            <div class="field">
+              <label for="taxTextEn">النص الإنجليزي</label>
+              <input type="text" id="taxTextEn" value="Tax Included" />
+            </div>
+
+            <div class="field field-full">
+              <label for="productImageInput">صورة المنتج</label>
+              <input type="file" id="productImageInput" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="btns">
+            <button id="updateBtn" type="button">تحديث البطاقة</button>
+            <button id="downloadBtn" type="button">تحميل كصورة</button>
+            <button id="printBtn" type="button">طباعة</button>
+          </div>
+
+          <div class="print-note">
+            <strong>مهم للطباعة:</strong>
+            فعّل خيار <span>Background Graphics</span> أو
+            <span>Print Backgrounds</span> من نافذة الطباعة.
+          </div>
+        </section>
+
+        <section class="preview-section">
+          <div class="preview-wrap">
+            <div class="tag-card" id="tagCard">
+              <div class="inner-frame">
+                <div class="header-box">
+                  <div class="title-row" id="previewName">
+                    روشين / شوكولاتة ميلكي
+                  </div>
+
+                  <div class="sub-row">
+                    <div class="offer-top" id="previewTopOffer">قطعة - 1</div>
+                    <svg id="barcode"></svg>
+                  </div>
+
+                  <div class="weight-row" id="previewWeight">Volume - 1 KG</div>
+                </div>
+
+                <div class="content-row">
+                  <div class="price-side">
+                    <div class="price-box">
+                      <div class="price-number" id="previewPrice">26</div>
+                      <img
+                        class="currency-mark-img"
+                        id="currencyMarkImg"
+                        src="sar.png"
+                        alt="ريال"
+                      />
+                    </div>
+
+                    <div class="main-offer" id="previewOffer">1 حبة</div>
+
+                    <div class="tax-ar" id="previewTaxAr">شامل الضريبة</div>
+                    <div class="tax-en" id="previewTaxEn">Tax Included</div>
+                  </div>
+
+                  <div class="image-side">
+                    <img
+                      id="previewImage"
+                      src="https://via.placeholder.com/300x380?text=Product"
+                      alt="صورة المنتج"
+                    />
+                  </div>
+                </div>
+
+                <div class="footer-row">
+                  <div class="qr-box">
+                    <img
+                      id="qrImage"
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=Product"
+                      alt="QR"
+                    />
+                  </div>
+
+                  <div class="footer-logo-wrap">
+                    <img id="footerLogo" src="logo.png" alt="Company Logo" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <script src="script.js"></script>
