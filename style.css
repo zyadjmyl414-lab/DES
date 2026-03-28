@@ -12,7 +12,7 @@ body {
   --text-main: #111;
   --text-sub: #5d6b7c;
   --yellow: #ece80b;
-  --card-gray: #e8e8e8;
+  --card-gray: #ffffff;
   --dot-border: #4f4f4f;
 }
 
@@ -381,7 +381,7 @@ body {
 
 @page {
   size: A4 landscape;
-  margin: 6mm;
+  margin: 5mm;
 }
 
 @media print {
@@ -392,7 +392,7 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
-    background: #fff !important;
+    background: #ffffff !important;
   }
 
   .no-print,
@@ -414,39 +414,45 @@ body {
   }
 
   .print-sheet {
-    width: 270mm !important;
-    height: 185mm !important;
-    margin: 8mm auto !important;
+    width: 287mm !important;
+    height: 200mm !important;
+    margin: 0 auto !important;
     padding: 0 !important;
-    gap: 6mm !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    gap: 3mm !important;
     box-shadow: none !important;
     border-radius: 0 !important;
-    background: #fff !important;
-    grid-template-columns: 1fr 1fr !important;
+    background: #ffffff !important;
     overflow: hidden !important;
-    /* transform: scale(0.92); /* 👈 تصغير متناسق */
-    /* transform-origin: top center; */
   }
 
   .tag-card {
-    width: 100% !important;
-    height: 185mm !important;
-    min-height: 0 !important;
-    padding: 3mm !important;
+    width: 140mm !important;
+    height: 200mm !important;
+    min-height: 200mm !important;
+    margin: 0 !important;
+    padding: 2mm !important;
+    box-sizing: border-box !important;
     overflow: hidden !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    flex: 0 0 140mm !important;
   }
 
   .card-frame {
     height: 100% !important;
-    grid-template-rows: 23% 62% 15% !important;
+    grid-template-rows: 22% 63% 15% !important;
   }
 
   .card-header {
-    padding: 10px 12px !important;
+    padding: 8px 10px !important;
   }
 
   .product-title {
-    font-size: 24px !important;
+    font-size: 26px !important;
+    line-height: 1.15 !important;
   }
 
   .mini-meta {
@@ -454,57 +460,66 @@ body {
   }
 
   .small-desc {
-    font-size: 14px !important;
+    font-size: 13px !important;
   }
 
   .barcode {
-    width: 150px !important;
-    height: 52px !important;
+    width: 145px !important;
+    height: 48px !important;
   }
 
   .card-body {
     grid-template-columns: 34% 66% !important;
-    gap: 8px !important;
-    padding: 10px !important;
-  }
-
-  .price-number {
-    font-size: 78px !important;
-  }
-
-  .currency-mark-img {
-    width: 36px !important;
-    height: 36px !important;
-  }
-
-  .main-offer {
-    margin-top: 22px !important;
-    font-size: 28px !important;
-  }
-
-  .card-footer {
-    grid-template-columns: 65px 1fr 70px !important;
     gap: 6px !important;
     padding: 8px !important;
   }
 
+  .price-column {
+    padding-top: 2px !important;
+  }
+
+  .price-number {
+    font-size: 100px !important;
+    line-height: 0.95 !important;
+  }
+
+  .currency-mark-img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .main-offer {
+    margin-top: 14px !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+  }
+
+  .card-footer {
+    grid-template-columns: 70px 1fr 110px !important;
+    gap: 6px !important;
+    padding: 6px 8px !important;
+  }
+
   .qr-image {
-    width: 52px !important;
-    height: 52px !important;
+    width: 65px !important;
+    height: 65px !important;
   }
 
   .footer-logo {
-    max-width: 64px !important;
-    max-height: 42px !important;
+    max-width: 70px !important;
+    max-height: 38px !important;
   }
 
   .tax-ar {
     font-size: 15px !important;
+    line-height: 1.05 !important;
   }
 
   .tax-en {
     font-size: 13px !important;
+    line-height: 1.05 !important;
   }
+
   .dual-logos {
     display: flex !important;
     justify-content: flex-end !important;
@@ -512,11 +527,12 @@ body {
   }
 
   .dual-logos .footer-logo {
-    max-width: 130px !important;
-    max-height: 60px !important;
+    max-width: 140px !important;
+    max-height: 70px !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
+    display: block !important;
   }
 }
 
@@ -591,17 +607,6 @@ body {
   .logo-side {
     justify-content: center;
   }
-}
-.dual-logos {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-}
-
-.dual-logos .footer-logo {
-  display: block;
-  object-fit: contain;
 }
 
 .dual-logos {
