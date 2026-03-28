@@ -56,6 +56,116 @@ function makeBarcodes(value) {
   });
 }
 
+// حذف الأخطاء القديمة
+function clearValidationErrors() {
+  document.querySelectorAll(".field-error").forEach((el) => el.remove());
+
+  [
+    productNameInput,
+    productWeightInput,
+    topOfferInput,
+    productPriceInput,
+    productOfferInput,
+    barcodeValueInput,
+    taxTextArInput,
+    taxTextEnInput,
+    productImageInput,
+  ].forEach((input) => {
+    input.classList.remove("input-error");
+  });
+}
+
+// إظهار رسالة الخطأ تحت الحقل
+function showFieldError(input, message) {
+  input.classList.add("input-error");
+
+  const field = input.closest(".field");
+  if (!field) return;
+
+  const oldError = field.querySelector(".field-error");
+  if (oldError) oldError.remove();
+
+  const errorEl = document.createElement("div");
+  errorEl.className = "field-error";
+  errorEl.textContent = message;
+  field.appendChild(errorEl);
+}
+
+// التحقق من الحقول
+function validateForm() {
+  clearValidationErrors();
+
+  const validations = [
+    {
+      input: productNameInput,
+      message: "يرجى إدخال اسم المنتج",
+      invalid: productNameInput.value.trim() === "",
+    },
+    {
+      input: productWeightInput,
+      message: "يرجى إدخال الوصف الصغير",
+      invalid: productWeightInput.value.trim() === "",
+    },
+    {
+      input: topOfferInput,
+      message: "يرجى إدخال النص أعلى الباركود",
+      invalid: topOfferInput.value.trim() === "",
+    },
+    {
+      input: productPriceInput,
+      message: "يرجى إدخال السعر",
+      invalid: productPriceInput.value.trim() === "",
+    },
+    {
+      input: productOfferInput,
+      message: "يرجى إدخال العرض",
+      invalid: productOfferInput.value.trim() === "",
+    },
+    {
+      input: barcodeValueInput,
+      message: "يرجى إدخال رقم الباركود",
+      invalid: barcodeValueInput.value.trim() === "",
+    },
+    {
+      input: taxTextArInput,
+      message: "يرجى إدخال النص العربي",
+      invalid: taxTextArInput.value.trim() === "",
+    },
+    {
+      input: taxTextEnInput,
+      message: "يرجى إدخال النص الإنجليزي",
+      invalid: taxTextEnInput.value.trim() === "",
+    },
+    {
+      input: productImageInput,
+      message: "يرجى اختيار صورة المنتج",
+      invalid: productImageInput.files.length === 0,
+    },
+  ];
+
+  let firstInvalidInput = null;
+
+  validations.forEach((item) => {
+    if (item.invalid) {
+      showFieldError(item.input, item.message);
+      if (!firstInvalidInput) {
+        firstInvalidInput = item.input;
+      }
+    }
+  });
+
+  if (firstInvalidInput) {
+    firstInvalidInput.focus();
+    firstInvalidInput.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+    return false;
+  }
+
+  return true;
+}
+
 // تحديث البطاقة
 function updateCard() {
   const name = productNameInput.value.trim() || "اسم المنتج";
@@ -77,8 +187,7 @@ function updateCard() {
 
   makeBarcodes(barcodeValue);
 
-  // QR
-
+  // QR ثابت - لا يوجد تعديل هنا
 }
 
 // قراءة صورة المنتج وتطبيقها على البطاقتين
@@ -96,7 +205,36 @@ function readLocalImage(input) {
 }
 
 productImageInput.addEventListener("change", function () {
+  const field = productImageInput.closest(".field");
+  productImageInput.classList.remove("input-error");
+  if (field) {
+    const error = field.querySelector(".field-error");
+    if (error) error.remove();
+  }
+
   readLocalImage(productImageInput);
+});
+
+// إزالة رسالة الخطأ أثناء الكتابة
+[
+  productNameInput,
+  productWeightInput,
+  topOfferInput,
+  productPriceInput,
+  productOfferInput,
+  barcodeValueInput,
+  taxTextArInput,
+  taxTextEnInput,
+].forEach((input) => {
+  input.addEventListener("input", function () {
+    input.classList.remove("input-error");
+
+    const field = input.closest(".field");
+    if (!field) return;
+
+    const error = field.querySelector(".field-error");
+    if (error) error.remove();
+  });
 });
 
 // زر التحديث
@@ -106,6 +244,10 @@ updateBtn.addEventListener("click", function () {
 
 // تحميل كصورة (البطاقتين معًا)
 downloadBtn.addEventListener("click", async function () {
+  if (!validateForm()) {
+    return;
+  }
+
   try {
     updateCard();
     downloadBtn.disabled = true;
@@ -138,6 +280,10 @@ downloadBtn.addEventListener("click", async function () {
 
 // الطباعة
 printBtn.addEventListener("click", function () {
+  if (!validateForm()) {
+    return;
+  }
+
   updateCard();
   window.print();
 });

@@ -351,6 +351,7 @@ body {
 
 .footer-center {
   text-align: center;
+  margin-top: -18px !important;
 }
 
 .tax-ar {
@@ -496,6 +497,7 @@ body {
 
   .card-footer {
     grid-template-columns: 70px 1fr 110px !important;
+    align-items: flex-start !important;
     gap: 6px !important;
     padding: 6px 8px !important;
   }
@@ -510,15 +512,17 @@ body {
     max-height: 38px !important;
   }
 
-  .tax-ar {
-    font-size: 15px !important;
-    line-height: 1.05 !important;
-  }
+.tax-ar {
+  font-size: 13px !important;
+  line-height: 1.05 !important;
+  transform: translateY(-18px) !important;
+}
 
-  .tax-en {
-    font-size: 13px !important;
-    line-height: 1.05 !important;
-  }
+.tax-en {
+  font-size: 11px !important;
+  line-height: 1.05 !important;
+  transform: translateY(-18px) !important;
+}
 
   .dual-logos {
     display: flex !important;
@@ -622,4 +626,16 @@ body {
   height: auto;
   object-fit: contain;
   display: block;
+}
+
+.input-error {
+  border-color: #e53935 !important;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12) !important;
+}
+
+.field-error {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #e53935;
 }
