@@ -3,19 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>بطاقة سعر منتج</title>
+    <title>بطاقة سعر منتج مزدوجة</title>
     <link rel="stylesheet" href="style.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar no-print">
         <div class="topbar-inner">
           <div>
-            <h1>بطاقة سعر المنتج</h1>
-            <p>تعديل سريع مع طباعة واضحة وبالألوان</p>
+            <h1>نموذج بطاقتين متطابقتين</h1>
+            <p>أي تعديل على البيانات يتم تطبيقه على البطاقتين بنفس المحتوى</p>
           </div>
         </div>
       </header>
@@ -71,12 +75,17 @@
 
             <div class="field field-full">
               <label for="productImageInput">صورة المنتج</label>
-              <input type="file" id="productImageInput" accept="image/*" />
+              <input
+                type="file"
+                id="productImageInput"
+                accept="image/*"
+                capture="environment"
+              />
             </div>
           </div>
 
           <div class="btns">
-            <button id="updateBtn" type="button">تحديث البطاقة</button>
+            <button id="updateBtn" type="button">تحديث البطاقتين</button>
             <button id="downloadBtn" type="button">تحميل كصورة</button>
             <button id="printBtn" type="button">طباعة</button>
           </div>
@@ -90,62 +99,142 @@
 
         <section class="preview-section">
           <div class="preview-wrap">
-            <div class="tag-card" id="tagCard">
-              <div class="inner-frame">
-                <div class="header-box">
-                  <div class="title-row" id="previewName">
-                    روشين / شوكولاتة ميلكي
+            <div class="print-sheet" id="printSheet">
+              <article class="tag-card">
+                <div class="card-frame">
+                  <div class="card-header">
+                    <div class="header-top">
+                      <div class="product-title" data-field="name">
+                        روشين / شوكولاتة ميلكي
+                      </div>
+                      <div class="mini-meta" data-field="topOffer">
+                        قطعة - 1
+                      </div>
+                    </div>
+
+                    <div class="header-bottom">
+                      <div class="small-desc" data-field="weight">
+                        Volume - 1 KG
+                      </div>
+                      <svg class="barcode"></svg>
+                    </div>
                   </div>
 
-                  <div class="sub-row">
-                    <div class="offer-top" id="previewTopOffer">قطعة - 1</div>
-                    <svg id="barcode"></svg>
-                  </div>
+                  <div class="card-body">
+                    <div class="price-column">
+                      <div class="price-box">
+                        <div class="price-number" data-field="price">26</div>
+                        <img
+                          class="currency-mark-img"
+                          src="sar.png"
+                          alt="ريال"
+                        />
+                      </div>
 
-                  <div class="weight-row" id="previewWeight">Volume - 1 KG</div>
-                </div>
+                      <div class="main-offer" data-field="offer">1 حبة</div>
+                    </div>
 
-                <div class="content-row">
-                  <div class="price-side">
-                    <div class="price-box">
-                      <div class="price-number" id="previewPrice">26</div>
+                    <div class="visual-column">
                       <img
-                        class="currency-mark-img"
-                        id="currencyMarkImg"
-                        src="sar.png"
-                        alt="ريال"
+                        class="preview-image"
+                        src="https://via.placeholder.com/520x520?text=Product"
+                        alt="صورة المنتج"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="card-footer">
+                    <div class="footer-side qr-side">
+                      <img
+                        class="qr-image"
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=Product"
+                        alt="QR"
                       />
                     </div>
 
-                    <div class="main-offer" id="previewOffer">1 حبة</div>
+                    <div class="footer-side footer-center">
+                      <div class="tax-ar" data-field="taxAr">شامل الضريبة</div>
+                      <div class="tax-en" data-field="taxEn">Tax Included</div>
+                    </div>
 
-                    <div class="tax-ar" id="previewTaxAr">شامل الضريبة</div>
-                    <div class="tax-en" id="previewTaxEn">Tax Included</div>
-                  </div>
-
-                  <div class="image-side">
-                    <img
-                      id="previewImage"
-                      src="https://via.placeholder.com/300x380?text=Product"
-                      alt="صورة المنتج"
-                    />
-                  </div>
-                </div>
-
-                <div class="footer-row">
-                  <div class="qr-box">
-                    <img
-                      id="qrImage"
-                      src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=Product"
-                      alt="QR"
-                    />
-                  </div>
-
-                  <div class="footer-logo-wrap">
-                    <img id="footerLogo" src="logo.png" alt="Company Logo" />
+                    <div class="footer-side logo-side">
+                      <img
+                        class="footer-logo"
+                        src="logo.png"
+                        alt="Company Logo"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
+
+              <article class="tag-card">
+                <div class="card-frame">
+                  <div class="card-header">
+                    <div class="header-top">
+                      <div class="product-title" data-field="name">
+                        روشين / شوكولاتة ميلكي
+                      </div>
+                      <div class="mini-meta" data-field="topOffer">
+                        قطعة - 1
+                      </div>
+                    </div>
+
+                    <div class="header-bottom">
+                      <div class="small-desc" data-field="weight">
+                        Volume - 1 KG
+                      </div>
+                      <svg class="barcode"></svg>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="price-column">
+                      <div class="price-box">
+                        <div class="price-number" data-field="price">26</div>
+                        <img
+                          class="currency-mark-img"
+                          src="sar.png"
+                          alt="ريال"
+                        />
+                      </div>
+
+                      <div class="main-offer" data-field="offer">1 حبة</div>
+                    </div>
+
+                    <div class="visual-column">
+                      <img
+                        class="preview-image"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3C/svg%3E"
+                        alt="صورة المنتج"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="card-footer">
+                    <div class="footer-side qr-side">
+                      <img
+                        class="qr-image"
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=Product"
+                        alt="QR"
+                      />
+                    </div>
+
+                    <div class="footer-side footer-center">
+                      <div class="tax-ar" data-field="taxAr">شامل الضريبة</div>
+                      <div class="tax-en" data-field="taxEn">Tax Included</div>
+                    </div>
+
+                    <div class="footer-side logo-side">
+                      <img
+                        class="footer-logo"
+                        src="logo.png"
+                        alt="Company Logo"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </section>

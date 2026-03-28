@@ -1,4 +1,3 @@
-
 const productNameInput = document.getElementById("productName");
 const productWeightInput = document.getElementById("productWeight");
 const topOfferInput = document.getElementById("topOffer");
@@ -9,44 +8,55 @@ const taxTextArInput = document.getElementById("taxTextAr");
 const taxTextEnInput = document.getElementById("taxTextEn");
 const productImageInput = document.getElementById("productImageInput");
 
-const previewName = document.getElementById("previewName");
-const previewWeight = document.getElementById("previewWeight");
-const previewTopOffer = document.getElementById("previewTopOffer");
-const previewPrice = document.getElementById("previewPrice");
-const previewOffer = document.getElementById("previewOffer");
-const previewTaxAr = document.getElementById("previewTaxAr");
-const previewTaxEn = document.getElementById("previewTaxEn");
-const previewImage = document.getElementById("previewImage");
-const qrImage = document.getElementById("qrImage");
-const currencyMarkImg = document.getElementById("currencyMarkImg");
-const footerLogo = document.getElementById("footerLogo");
-const tagCard = document.getElementById("tagCard");
-
 const updateBtn = document.getElementById("updateBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const printBtn = document.getElementById("printBtn");
+const printSheet = document.getElementById("printSheet");
 
-currencyMarkImg.onerror = function () {
-  console.warn("ملف sar.png غير موجود في نفس مجلد المشروع");
-};
+const previewImages = document.querySelectorAll(".preview-image");
+const qrImages = document.querySelectorAll(".qr-image");
+const barcodeSvgs = document.querySelectorAll(".barcode");
+const currencyImages = document.querySelectorAll(".currency-mark-img");
+const footerLogos = document.querySelectorAll(".footer-logo");
 
-footerLogo.onerror = function () {
-  console.warn("ملف logo.png غير موجود في نفس مجلد المشروع");
-};
+// تنبيه إذا الصور غير موجودة
+currencyImages.forEach((img) => {
+  img.onerror = function () {
+    console.warn("ملف sar.png غير موجود");
+  };
+});
 
-function makeBarcode(value) {
-  JsBarcode("#barcode", value || "4210177488818", {
-    format: "CODE128",
-    lineColor: "#000000",
-    width: 1.35,
-    height: 28,
-    displayValue: true,
-    fontSize: 9,
-    margin: 0,
-    textMargin: 1,
+footerLogos.forEach((img) => {
+  img.onerror = function () {
+    console.warn("ملف logo.png غير موجود");
+  };
+});
+
+// تحديث النصوص في كل البطاقتين
+function setText(fieldName, value) {
+  document.querySelectorAll(`[data-field="${fieldName}"]`).forEach((el) => {
+    el.textContent = value;
   });
 }
 
+// إنشاء باركود لكل بطاقة
+function makeBarcodes(value) {
+  barcodeSvgs.forEach((svg) => {
+    JsBarcode(svg, value || "4210177488818", {
+      format: "CODE128",
+      lineColor: "#000000",
+      background: "transparent",
+      width: 1.7,
+      height: 48,
+      displayValue: true,
+      fontSize: 18,
+      margin: 0,
+      textMargin: 4,
+    });
+  });
+}
+
+// تحديث البطاقة
 function updateCard() {
   const name = productNameInput.value.trim() || "اسم المنتج";
   const weight = productWeightInput.value.trim() || "Volume - 1 KG";
@@ -57,98 +67,86 @@ function updateCard() {
   const taxAr = taxTextArInput.value.trim() || "شامل الضريبة";
   const taxEn = taxTextEnInput.value.trim() || "Tax Included";
 
-  previewName.textContent = name;
-  previewWeight.textContent = weight;
-  previewTopOffer.textContent = topOffer;
-  previewPrice.textContent = price;
-  previewOffer.textContent = offer;
-  previewTaxAr.textContent = taxAr;
-  previewTaxEn.textContent = taxEn;
+  setText("name", name);
+  setText("weight", weight);
+  setText("topOffer", topOffer);
+  setText("price", price);
+  setText("offer", offer);
+  setText("taxAr", taxAr);
+  setText("taxEn", taxEn);
 
-  makeBarcode(barcodeValue);
+  makeBarcodes(barcodeValue);
 
-  qrImage.src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" +
+  // QR
+  const qrSrc =
+    "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" +
     encodeURIComponent(`${name} | Price: ${price} | Barcode: ${barcodeValue}`);
+
+  qrImages.forEach((img) => {
+    img.src = qrSrc;
+  });
 }
 
-function readLocalImage(input, targetElement) {
+// قراءة صورة المنتج وتطبيقها على البطاقتين
+function readLocalImage(input) {
   const file = input.files[0];
   if (!file) return;
 
   const reader = new FileReader();
   reader.onload = function (e) {
-    targetElement.src = e.target.result;
+    previewImages.forEach((img) => {
+      img.src = e.target.result;
+    });
   };
   reader.readAsDataURL(file);
 }
 
 productImageInput.addEventListener("change", function () {
-  readLocalImage(productImageInput, previewImage);
+  readLocalImage(productImageInput);
 });
 
+// زر التحديث
 updateBtn.addEventListener("click", function () {
   updateCard();
 });
 
+// تحميل كصورة (البطاقتين معًا)
 downloadBtn.addEventListener("click", async function () {
   try {
     updateCard();
     downloadBtn.disabled = true;
     downloadBtn.textContent = "جاري الحفظ...";
 
-    const canvas = await html2canvas(tagCard, {
-      scale: 4,
+    const canvas = await html2canvas(printSheet, {
+      scale: 3,
       useCORS: true,
-      allowTaint: true,
-      backgroundColor: "#b7e3ee",
-      logging: false,
+      backgroundColor: "#ffffff",
     });
 
-    canvas.toBlob(function (blob) {
-      if (!blob) {
-        const dataUrl = canvas.toDataURL("image/png", 1.0);
-        const win = window.open();
-        if (win) {
-          win.document.write(
-            `<title>product-price-tag.png</title><img src="${dataUrl}" style="max-width:100%">`,
-          );
-        } else {
-          alert("تعذر الحفظ التلقائي. تم منع النافذة المنبثقة.");
-        }
-        downloadBtn.disabled = false;
-        downloadBtn.textContent = "تحميل كصورة";
-        return;
-      }
+    const link = document.createElement("a");
+    const rawBarcode = barcodeValueInput.value.trim() || "barcode";
+    const safeBarcode = rawBarcode.replace(/[\\/:*?"<>|]/g, "_");
 
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "product-price-tag.png";
-      a.style.display = "none";
-      document.body.appendChild(a);
-      a.click();
+    link.href = canvas.toDataURL("image/png");
+    link.download = `${safeBarcode}.png`;
 
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        downloadBtn.disabled = false;
-        downloadBtn.textContent = "تحميل كصورة";
-      }, 300);
-    }, "image/png");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   } catch (error) {
-    console.error("فشل الحفظ:", error);
-    alert("حدث خطأ أثناء حفظ الصورة");
+    console.error(error);
+    alert("حدث خطأ أثناء الحفظ");
+  } finally {
     downloadBtn.disabled = false;
     downloadBtn.textContent = "تحميل كصورة";
   }
 });
 
+// الطباعة
 printBtn.addEventListener("click", function () {
   updateCard();
-  setTimeout(() => {
-    window.print();
-  }, 150);
+  window.print();
 });
 
+// تشغيل أولي
 updateCard();
