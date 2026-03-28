@@ -17,7 +17,7 @@ body {
 }
 
 body {
-  font-family: 'Cairo', Tahoma, Arial, sans-serif;
+  font-family: "Cairo", Tahoma, Arial, sans-serif;
   background: radial-gradient(
     circle at top right,
     #f4f8ff 0%,
@@ -425,7 +425,7 @@ body {
     grid-template-columns: 1fr 1fr !important;
     overflow: hidden !important;
     /* transform: scale(0.92); /* 👈 تصغير متناسق */
-    /* transform-origin: top center; */ 
+    /* transform-origin: top center; */
   }
 
   .tag-card {
@@ -505,6 +505,19 @@ body {
   .tax-en {
     font-size: 13px !important;
   }
+  .dual-logos {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+
+  .dual-logos .footer-logo {
+    max-width: 130px !important;
+    max-height: 60px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -578,4 +591,30 @@ body {
   .logo-side {
     justify-content: center;
   }
+}
+.dual-logos {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.dual-logos .footer-logo {
+  display: block;
+  object-fit: contain;
+}
+
+.dual-logos {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.dual-logos .footer-logo {
+  max-width: 150px;
+  max-height: 70px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }

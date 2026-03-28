@@ -78,13 +78,7 @@ function updateCard() {
   makeBarcodes(barcodeValue);
 
   // QR
-  const qrSrc =
-    "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" +
-    encodeURIComponent(`${name} | Price: ${price} | Barcode: ${barcodeValue}`);
 
-  qrImages.forEach((img) => {
-    img.src = qrSrc;
-  });
 }
 
 // قراءة صورة المنتج وتطبيقها على البطاقتين
